@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.PixelCopy;
@@ -21,7 +22,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    Button button1;
+    Button button1, button2;
     TextView text1;
 
     @Override
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button1 = (Button) findViewById(R.id.button_getAPIData);
+        button2 = (Button) findViewById(R.id.button_broswer);
         text1 = (TextView) findViewById(R.id.textView1);
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
                 text1.setText("Please wait until activity swap");
                 getAPIData request = new getAPIData(MainActivity.this);
                 request.execute();
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                startActivity(browserIntent);
             }
         });
     }
