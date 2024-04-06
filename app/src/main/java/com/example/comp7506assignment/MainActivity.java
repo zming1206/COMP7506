@@ -1,55 +1,88 @@
 package com.example.comp7506assignment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.PixelCopy;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    Button button1, button2;
-    TextView text1;
+
+    private RecyclerView recyclerView;
+
+    private SearchView searchView;
+
+    private ArrayList<PetAdoption> myData;
+
+    private CustomAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button1 = (Button) findViewById(R.id.button_getAPIData);
-        button2 = (Button) findViewById(R.id.button_broswer);
-        text1 = (TextView) findViewById(R.id.textView1);
+        searchView = findViewById(R.id.search);
+        searchView.clearFocus();
+        recyclerView = findViewById(R.id.search_list);
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        getAPIData request = new getAPIData(MainActivity.this);
+        request.execute();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                text1.setText("Please wait until activity swap");
-                getAPIData request = new getAPIData(MainActivity.this);
-                request.execute();
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterList(s);
+                return true;
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                startActivity(browserIntent);
-            }
-        });
+        if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CALL_PHONE},1);
+        }
+
+    }
+
+    private void filterList(String s) {
+
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(new Item("b"));
+        items.add(new Item("a"));
+        items.add(new Item("a"));
+        items.add(new Item("b"));
+        items.add(new Item("a"));
+        items.add(new Item("a"));
+        items.add(new Item("c"));
+        items.add(new Item("a"));
+
+        loadList(items);
     }
 
     private class getAPIData extends AsyncTask<String, String, String> {
@@ -167,10 +200,40 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected  void onPostExecute(String x) {
-            Intent intent = new Intent(context, ShowDataActivity.class);
-            intent.putExtra("sheetData", data);
-            context.startActivity(intent);
-        }
+            Log.i("sheetData", data.toString());
 
+            ArrayList<Item> items = new ArrayList<>();
+            items.add(new Item("a"));
+            items.add(new Item("a"));
+            items.add(new Item("a"));
+            items.add(new Item("b"));
+            items.add(new Item("a"));
+            items.add(new Item("a"));
+            items.add(new Item("c"));
+            items.add(new Item("a"));
+            items.add(new Item("a"));
+            items.add(new Item("a"));
+            items.add(new Item("a"));
+            items.add(new Item("a"));
+
+            loadList(items);
+
+            myData = data;
+        }
+    }
+
+    private void loadList(ArrayList<Item> items) {
+        customAdapter = new CustomAdapter(items);
+
+        customAdapter.setOnClickListener((position, item) -> {
+            Log.i("123", item.getName());
+
+            Intent intent = new Intent(MainActivity.this, ShowDataActivity.class);
+            intent.putExtra("sheetData", myData);
+            startActivity(intent);
+        });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(customAdapter);
     }
 }
