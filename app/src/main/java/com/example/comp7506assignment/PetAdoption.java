@@ -10,8 +10,9 @@ public class PetAdoption implements Serializable {
     String adoptionNumber;
     String source;
     String announceDate;
+    String contactNumber;
 
-    PetAdoption(String organization, String type, String gender, String name, String adoptionNumber, String source, String announceDate) {
+    PetAdoption(String organization, String type, String gender, String name, String adoptionNumber, String source, String announceDate, String contactNumber) {
         this.organization = organization;
         this.type = type;
         this.gender = gender;
@@ -19,6 +20,7 @@ public class PetAdoption implements Serializable {
         this.adoptionNumber = adoptionNumber;
         this.source = source;
         this.announceDate = announceDate;
+        this.contactNumber = contactNumber;
     }
 
     public String toString() {
@@ -30,6 +32,7 @@ public class PetAdoption implements Serializable {
         result = result + "[" +  adoptionNumber + "] ";
         result = result + "[" +  source + "] ";
         result = result + "[" +  announceDate + "] ";
+        result = result + "[" +  contactNumber + "] ";
 
         return result;
     }

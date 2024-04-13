@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
+
             OkHttpClient client = new OkHttpClient();
 
             String url = "https://sheets.googleapis.com/v4/spreadsheets/1zJDWR96nD6h20x8e3Mr8NHsrT4KpGzalaWXwv_pLKag?includeGridData=true&key=AIzaSyClTM6kyb_y6Ww3xcWWwK_Kv_c1OIWvyeE";
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     String adpotionNumber = "";
                     String source = "";
                     String date = "";
+                    String contactNumber = "";
 
                     JSONObject eachRowObject = rowDataArray.getJSONObject(i);
                     JSONArray valueArray = eachRowObject.getJSONArray("values");
@@ -147,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     // 5 = Adoption Number
                     // 6 = Source
                     // 7 = Date
+                    // 8 = Contact Number
 
                     // 0 Index Number (Not Used)
                     JSONObject fieldObect = valueArray.getJSONObject(0);
@@ -187,8 +190,15 @@ public class MainActivity extends AppCompatActivity {
                     valueObject = fieldObect.getJSONObject("userEnteredValue");
                     date = valueObject.getString("stringValue");
 
+                    // 7 Contact Number
+                    fieldObect = valueArray.getJSONObject(8);
+                    valueObject = fieldObect.getJSONObject("userEnteredValue");
+                    contactNumber = valueObject.getString("stringValue");
+
                     // Prepare PetAdoption Record
-                    PetAdoption rec = new PetAdoption(organization, type, gender, name, adpotionNumber, source, date);
+                    PetAdoption rec = new PetAdoption(organization, type, gender, name, adpotionNumber, source, date, contactNumber);
+
+                    System.out.println(rec.toString());
 
                     data.add(rec);
                 }
@@ -203,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("sheetData", data.toString());
 
             ArrayList<Item> items = new ArrayList<>();
+            /*
             items.add(new Item("a"));
             items.add(new Item("a"));
             items.add(new Item("a"));
@@ -215,6 +226,11 @@ public class MainActivity extends AppCompatActivity {
             items.add(new Item("a"));
             items.add(new Item("a"));
             items.add(new Item("a"));
+            */
+
+            for(int i = 0; i < data.size(); i++) {
+                items.add(new Item(data.get(i).name));
+            }
 
             loadList(items);
 
@@ -230,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(MainActivity.this, ShowDataActivity.class);
             intent.putExtra("sheetData", myData);
+            intent.putExtra("petName", item.getName());
             startActivity(intent);
         });
 

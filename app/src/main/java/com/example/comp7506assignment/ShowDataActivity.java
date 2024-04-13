@@ -35,16 +35,37 @@ public class ShowDataActivity extends AppCompatActivity {
 
 
         Bundle dataBundle = getIntent().getExtras();
-        ArrayList data = (ArrayList) dataBundle.getSerializable("sheetData");
+        ArrayList<PetAdoption> data = (ArrayList) dataBundle.getSerializable("sheetData");
+        String petName = dataBundle.getString("petName");
 
+        PetAdoption pet;
+        int targetIndex = 0;
+        for(int i = 0; i < data.size(); i++) {
+            pet = data.get(i);
+            if(pet.name.equals(petName)) {
+                targetIndex = i;
+            }
+        }
+
+        pet = data.get(targetIndex);
+
+
+        /*
         name.setText("Bronwie");
         institution.setText("香港兔友協會");
         category_title.setText("貓");
         sex_title.setText("男");
         date_title.setText("01-01");
         number.setText("12345");
+        */
+        name.setText(pet.name);
+        institution.setText(pet.organization);
+        category_title.setText(pet.type);
+        sex_title.setText(pet.gender);
+        date_title.setText(pet.announceDate);
+        number.setText(pet.adoptionNumber);
 
-
+        /*
         donate.setOnClickListener(view -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
             startActivity(browserIntent);
@@ -58,8 +79,24 @@ public class ShowDataActivity extends AppCompatActivity {
             startActivity(browserIntent);
         });
         back.setOnClickListener(view -> onBackPressed());
+        */
 
+        String sourceURL = pet.source;
+        String contactNumber = pet.contactNumber;
 
+        donate.setOnClickListener(view -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceURL));
+            startActivity(browserIntent);
+        });
+        phone.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(contactNumber));
+            startActivity(intent);
+        });
+        chain.setOnClickListener(view -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sourceURL));
+            startActivity(browserIntent);
+        });
+        back.setOnClickListener(view -> onBackPressed());
 
 
     }
