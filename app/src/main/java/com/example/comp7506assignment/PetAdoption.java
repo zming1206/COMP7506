@@ -3,6 +3,7 @@ package com.example.comp7506assignment;
 import java.io.Serializable;
 
 public class PetAdoption implements Serializable {
+
     String organization;
     String type;
     String gender;

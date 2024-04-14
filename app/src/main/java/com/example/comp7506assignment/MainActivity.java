@@ -69,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
     private void filterList(String s) {
 
         ArrayList<Item> items = new ArrayList<>();
-        items.add(new Item("b"));
-        items.add(new Item("a"));
-        items.add(new Item("a"));
-        items.add(new Item("b"));
-        items.add(new Item("a"));
-        items.add(new Item("a"));
-        items.add(new Item("c"));
-        items.add(new Item("a"));
+//        items.add(new Item("b"));
+//        items.add(new Item("a"));
+//        items.add(new Item("a"));
+//        items.add(new Item("b"));
+//        items.add(new Item("a"));
+//        items.add(new Item("a"));
+//        items.add(new Item("c"));
+//        items.add(new Item("a"));
 
         loadList(items);
     }
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             */
 
             for(int i = 0; i < data.size(); i++) {
-                items.add(new Item(data.get(i).name));
+                items.add(new Item(data.get(i).name, data.get(i).organization));
             }
 
             loadList(items);
@@ -235,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadList(ArrayList<Item> items) {
+
         customAdapter = new CustomAdapter(items);
 
         customAdapter.setOnClickListener((position, item) -> {
@@ -243,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ShowDataActivity.class);
             intent.putExtra("sheetData", myData);
             intent.putExtra("petName", item.getName());
+            intent.putExtra("Institution", item.getInstitution());
             startActivity(intent);
         });
 

@@ -1,5 +1,6 @@
 package com.example.comp7506assignment;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.getName().setText(localDataSet.get(position).getName());
-        viewHolder.getInstitution().setText(localDataSet.get(position).getName());
+        viewHolder.getInstitution().setText(localDataSet.get(position).getInstitution());
         //viewHolder.getIcon().setImageDrawable( R.drawable.catt);
 
         viewHolder.getRowItem().setOnClickListener(view -> {
@@ -88,6 +89,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             }
         });
     }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
