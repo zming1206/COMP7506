@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<PetAdoption> myData;
 
+    private Button btn1,btn2,btn3,btn4,btn5;
+
+    private Boolean[] checked = {false,false,false,false,false};
+
     private CustomAdapter customAdapter;
 
     @Override
@@ -47,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         searchView = findViewById(R.id.search);
         searchView.clearFocus();
         recyclerView = findViewById(R.id.search_list);
+        btn1= findViewById(R.id.btn_cat);
+        btn2= findViewById(R.id.btn_dog);
+        btn3= findViewById(R.id.btn_rabbit);
+        btn4= findViewById(R.id.btn_turtle);
+        btn5= findViewById(R.id.btn_snake);
 
         getAPIData request = new getAPIData(MainActivity.this);
         request.execute();
@@ -64,20 +73,44 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn1.setOnClickListener(view -> filterListByBtn("貓",0));
+        btn2.setOnClickListener(view -> filterListByBtn("狗",1));
+        btn3.setOnClickListener(view -> filterListByBtn("兔",2));
+        btn4.setOnClickListener(view -> filterListByBtn("龜",3));
+        btn5.setOnClickListener(view -> filterListByBtn("蛇",4));
     }
 
     private void filterList(String s) {
+        Log.i("filterList", s);
+        ArrayList<PetAdoption> items = new ArrayList<>();
 
-        ArrayList<Item> items = new ArrayList<>();
-//        items.add(new Item("b"));
-//        items.add(new Item("a"));
-//        items.add(new Item("a"));
-//        items.add(new Item("b"));
-//        items.add(new Item("a"));
-//        items.add(new Item("a"));
-//        items.add(new Item("c"));
-//        items.add(new Item("a"));
+        if (s.isEmpty()) {
+            items = new ArrayList<>(myData);
+        }
+        else {
+            for(int i = 0; i < myData.size(); i++) {
+                if (myData.get(i).name.toLowerCase().contains(s.toLowerCase()) || myData.get(i).organization.toLowerCase().contains(s.toLowerCase()))
+                    items.add(myData.get(i));
+            }
+        }
 
+        loadList(items);
+    }
+
+    private void filterListByBtn(String s, int index){
+        Log.i("filterListByBtn", s);
+        ArrayList<PetAdoption> items = new ArrayList<>();
+
+        if(checked[index]) {
+            items = new ArrayList<>(myData);
+            checked[index] = !checked[index];
+        }else {
+            for(int i = 0; i < myData.size(); i++) {
+                if (myData.get(i).type.toLowerCase().contains(s.toLowerCase()))
+                    items.add(myData.get(i));
+            }
+            checked[index] = !checked[index];
+        }
         loadList(items);
     }
 
@@ -208,25 +241,7 @@ public class MainActivity extends AppCompatActivity {
         protected  void onPostExecute(String x) {
             Log.i("sheetData", data.toString());
 
-            ArrayList<Item> items = new ArrayList<>();
-            /*
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("b"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("c"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            */
-
-            for(int i = 0; i < data.size(); i++) {
-                items.add(new Item(data.get(i).name, data.get(i).organization));
-            }
+            ArrayList<PetAdoption> items = new ArrayList<>(data);
 
             loadList(items);
 
@@ -234,17 +249,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void loadList(ArrayList<Item> items) {
+    private void loadList(ArrayList<PetAdoption> items) {
 
         customAdapter = new CustomAdapter(items);
 
         customAdapter.setOnClickListener((position, item) -> {
-            Log.i("123", item.getName());
+            Log.i("123", item.name);
 
             Intent intent = new Intent(MainActivity.this, ShowDataActivity.class);
             intent.putExtra("sheetData", myData);
-            intent.putExtra("petName", item.getName());
-            intent.putExtra("Institution", item.getInstitution());
+            intent.putExtra("petName", item.name);
+            intent.putExtra("Institution", item.organization);
             startActivity(intent);
         });
 

@@ -1,20 +1,19 @@
 package com.example.comp7506assignment;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class ShowDataActivity extends AppCompatActivity {
     TextView name, institution, category_title, sex_title, date_title, number;
 
-    ImageView back, chain, phone, donate;
+    ImageView back, chain, phone, donate,showAnimal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class ShowDataActivity extends AppCompatActivity {
         chain = (ImageView) findViewById(R.id.chain);
         phone = (ImageView) findViewById(R.id.phone);
         donate = (ImageView) findViewById(R.id.donate);
-
+        showAnimal = (ImageView) findViewById(R.id.show_animal);
 
         Bundle dataBundle = getIntent().getExtras();
         ArrayList<PetAdoption> data = (ArrayList) dataBundle.getSerializable("sheetData");
@@ -49,15 +48,6 @@ public class ShowDataActivity extends AppCompatActivity {
 
         pet = data.get(targetIndex);
 
-
-        /*
-        name.setText("Bronwie");
-        institution.setText("香港兔友協會");
-        category_title.setText("貓");
-        sex_title.setText("男");
-        date_title.setText("01-01");
-        number.setText("12345");
-        */
         name.setText(pet.name);
         institution.setText(pet.organization);
         category_title.setText(pet.type);
@@ -65,21 +55,21 @@ public class ShowDataActivity extends AppCompatActivity {
         date_title.setText(pet.announceDate);
         number.setText(pet.adoptionNumber);
 
-        /*
-        donate.setOnClickListener(view -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-            startActivity(browserIntent);
-        });
-        phone.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "12345678"));
-            startActivity(intent);
-        });
-        chain.setOnClickListener(view -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-            startActivity(browserIntent);
-        });
-        back.setOnClickListener(view -> onBackPressed());
-        */
+        if (pet.type.toLowerCase().contains("貓")) {
+            showAnimal.setImageResource(R.drawable.catt);
+        }
+        else if (pet.type.toLowerCase().contains("狗")) {
+            showAnimal.setImageResource(R.drawable.cute_dog);
+        }
+        else if (pet.type.toLowerCase().contains("兔")) {
+            showAnimal.setImageResource(R.drawable.cute_rab);
+        }
+        else if (pet.type.toLowerCase().contains("龜")) {
+            showAnimal.setImageResource(R.drawable.cute_tort);
+        }
+        else if (pet.type.toLowerCase().contains("蛇")) {
+            showAnimal.setImageResource(R.drawable.cartoon_snake);
+        }
 
         String sourceURL = pet.source;
         String contactNumber = pet.contactNumber;
@@ -89,7 +79,7 @@ public class ShowDataActivity extends AppCompatActivity {
             startActivity(browserIntent);
         });
         phone.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(contactNumber));
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contactNumber));
             startActivity(intent);
         });
         chain.setOnClickListener(view -> {

@@ -1,6 +1,5 @@
 package com.example.comp7506assignment;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    private ArrayList<Item> localDataSet;
+    private ArrayList<PetAdoption> localDataSet;
 
     private OnClickListener onClickListener;
     /**
@@ -59,7 +58,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView
      */
-    public CustomAdapter(ArrayList<Item> dataSet) {
+    public CustomAdapter(ArrayList<PetAdoption> dataSet) {
         localDataSet = dataSet;
     }
 
@@ -79,9 +78,24 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getName().setText(localDataSet.get(position).getName());
-        viewHolder.getInstitution().setText(localDataSet.get(position).getInstitution());
-        //viewHolder.getIcon().setImageDrawable( R.drawable.catt);
+        viewHolder.getName().setText(localDataSet.get(position).name);
+        viewHolder.getInstitution().setText(localDataSet.get(position).organization);
+
+        if (localDataSet.get(position).type.toLowerCase().contains("貓")) {
+            viewHolder.getIcon().setImageResource(R.drawable.catt);
+        }
+        else if (localDataSet.get(position).type.toLowerCase().contains("狗")) {
+            viewHolder.getIcon().setImageResource(R.drawable.cute_dog);
+        }
+        else if (localDataSet.get(position).type.toLowerCase().contains("兔")) {
+            viewHolder.getIcon().setImageResource(R.drawable.cute_rab);
+        }
+        else if (localDataSet.get(position).type.toLowerCase().contains("龜")) {
+            viewHolder.getIcon().setImageResource(R.drawable.cute_tort);
+        }
+        else if (localDataSet.get(position).type.toLowerCase().contains("蛇")) {
+            viewHolder.getIcon().setImageResource(R.drawable.cartoon_snake);
+        }
 
         viewHolder.getRowItem().setOnClickListener(view -> {
             if (onClickListener != null) {
@@ -101,6 +115,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         this.onClickListener = onClickListener;
     }
     public interface OnClickListener {
-        void onClick(int position, Item item);
+        void onClick(int position, PetAdoption item);
     }
 }
