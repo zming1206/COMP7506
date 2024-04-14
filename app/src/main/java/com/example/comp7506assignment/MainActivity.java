@@ -194,7 +194,8 @@ public class MainActivity extends AppCompatActivity {
                     // Prepare PetAdoption Record
                     PetAdoption rec = new PetAdoption(organization, type, gender, name, adpotionNumber, source, date, contactNumber);
 
-                    System.out.println(rec.toString());
+                    //System.out.println(rec.toString());
+                    Log.i("APIData", rec.toString());
 
                     data.add(rec);
                 }
@@ -209,20 +210,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i("sheetData", data.toString());
 
             ArrayList<Item> items = new ArrayList<>();
-            /*
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("b"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("c"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            items.add(new Item("a"));
-            */
 
             for(int i = 0; i < data.size(); i++) {
                 items.add(new Item(data.get(i).name, data.get(i).organization));
