@@ -55,20 +55,53 @@ public class ShowDataActivity extends AppCompatActivity {
         date_title.setText(pet.announceDate);
         number.setText(pet.adoptionNumber);
 
-        if (pet.type.toLowerCase().contains("貓")) {
-            showAnimal.setImageResource(R.drawable.catt);
+//        if (pet.type.toLowerCase().contains("貓")) {
+//            showAnimal.setImageResource(R.drawable.catt);
+//        }
+//        else if (pet.type.toLowerCase().contains("狗")) {
+//            showAnimal.setImageResource(R.drawable.cute_dog);
+//        }
+//        else if (pet.type.toLowerCase().contains("兔")) {
+//            showAnimal.setImageResource(R.drawable.cute_rab);
+//        }
+//        else if (pet.type.toLowerCase().contains("龜")) {
+//            showAnimal.setImageResource(R.drawable.cute_tort);
+//        }
+//        else if (pet.type.toLowerCase().contains("蛇")) {
+//            showAnimal.setImageResource(R.drawable.cartoon_snake);
+//        }
+//        else if (pet.name.toLowerCase().contains("靚靚")) {
+//            showAnimal.setImageResource(R.drawable.p103);
+//        }
+        if (pet.name.contains("靚靚")) {
+            showAnimal.setImageResource(R.drawable.p103);
         }
-        else if (pet.type.toLowerCase().contains("狗")) {
-            showAnimal.setImageResource(R.drawable.cute_dog);
+        else if (pet.name.contains("金金")) {
+            showAnimal.setImageResource(R.drawable.p102);
         }
-        else if (pet.type.toLowerCase().contains("兔")) {
-            showAnimal.setImageResource(R.drawable.cute_rab);
+        else if (pet.name.contains("Ziti")) {
+            showAnimal.setImageResource(R.drawable.p101);
         }
-        else if (pet.type.toLowerCase().contains("龜")) {
-            showAnimal.setImageResource(R.drawable.cute_tort);
+        else if (pet.name.contains("Kayla")) {
+            showAnimal.setImageResource(R.drawable.p100);
         }
-        else if (pet.type.toLowerCase().contains("蛇")) {
-            showAnimal.setImageResource(R.drawable.cartoon_snake);
+        else if (pet.name.contains("蓮子")) {
+            showAnimal.setImageResource(R.drawable.p99);
+        }
+        else if (pet.name.contains("Kei")) {
+            showAnimal.setImageResource(R.drawable.p98);
+        }
+        else if (pet.name.contains("阿中")) {
+            showAnimal.setImageResource(R.drawable.p97);
+        }
+        else if (pet.name.contains("妮妮")) {
+            showAnimal.setImageResource(R.drawable.p96);
+        }
+        else if (pet.name.contains("莉莉")) {
+            showAnimal.setImageResource(R.drawable.p95);
+        }
+        else if (pet.name.contains("Y6")) {
+            showAnimal.setImageResource(R.drawable.p94);
         }
 
         String sourceURL = pet.source;

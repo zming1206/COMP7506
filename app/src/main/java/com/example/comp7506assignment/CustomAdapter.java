@@ -81,20 +81,51 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         viewHolder.getName().setText(localDataSet.get(position).name);
         viewHolder.getInstitution().setText(localDataSet.get(position).organization);
 
-        if (localDataSet.get(position).type.toLowerCase().contains("貓")) {
-            viewHolder.getIcon().setImageResource(R.drawable.catt);
+////        if (localDataSet.get(position).type.toLowerCase().contains("貓")) {
+//            viewHolder.getIcon().setImageResource(R.drawable.p103);
+//        }
+//        else if (localDataSet.get(position).type.toLowerCase().contains("狗")) {
+//            viewHolder.getIcon().setImageResource(R.drawable.cute_dog);
+//        }
+//        else if (localDataSet.get(position).type.toLowerCase().contains("兔")) {
+//            viewHolder.getIcon().setImageResource(R.drawable.cute_rab);
+//        }
+//        else if (localDataSet.get(position).type.toLowerCase().contains("龜")) {
+//            viewHolder.getIcon().setImageResource(R.drawable.cute_tort);
+//        }
+//        else if (localDataSet.get(position).type.toLowerCase().contains("蛇")) {
+//            viewHolder.getIcon().setImageResource(R.drawable.cartoon_snake);
+//        }
+
+        if (localDataSet.get(position).name.toLowerCase().contains("靚靚")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p103);
         }
-        else if (localDataSet.get(position).type.toLowerCase().contains("狗")) {
-            viewHolder.getIcon().setImageResource(R.drawable.cute_dog);
+        else if (localDataSet.get(position).name.toLowerCase().contains("金金")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p102);
         }
-        else if (localDataSet.get(position).type.toLowerCase().contains("兔")) {
-            viewHolder.getIcon().setImageResource(R.drawable.cute_rab);
+        else if(localDataSet.get(position).name.contains("Ziti")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p101);
         }
-        else if (localDataSet.get(position).type.toLowerCase().contains("龜")) {
-            viewHolder.getIcon().setImageResource(R.drawable.cute_tort);
+        else if (localDataSet.get(position).name.contains("Kayla")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p100);
         }
-        else if (localDataSet.get(position).type.toLowerCase().contains("蛇")) {
-            viewHolder.getIcon().setImageResource(R.drawable.cartoon_snake);
+        else if (localDataSet.get(position).name.toLowerCase().contains("蓮子")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p99);
+        }
+        else if (localDataSet.get(position).name.contains("Kei")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p98);
+        }
+        else if (localDataSet.get(position).name.contains("阿中")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p97);
+        }
+        else if (localDataSet.get(position).name.contains("妮妮")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p96);
+        }
+        else if (localDataSet.get(position).name.contains("莉莉")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p95);
+        }
+        else if (localDataSet.get(position).name.contains("Y6")) {
+            viewHolder.getIcon().setImageResource(R.drawable.p94);
         }
 
         viewHolder.getRowItem().setOnClickListener(view -> {
